@@ -1,7 +1,7 @@
 {
   "name": "@pardnchiu/nodejs-mysqlpool",
   "description": "A MySQL connection pool solution designed specifically for TypeScript/JavaScript, featuring intuitive chaining syntax that integrates query builder capabilities with read-write separation architecture.",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "main": "index.js",
   "types": "index.d.ts",
   "publishConfig": {
@@ -17,7 +17,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pardnltd-tools/nodejs-mysqlpool.git"
+    "url": "git+https://github.com/pardnchiu/nodejs-mysqlpool.git"
   },
   "exports": {
     ".": {
@@ -27,7 +27,6 @@
   },
   "keywords": [
     "typescript",
-    "javascript",
     "chain-syntax",
     "mysql",
     "邱敬幃",
@@ -36,9 +35,9 @@
   "author": "Pardn Chiu",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/pardnltd-tools/nodejs-mysqlpool/issues"
+    "url": "https://github.com/pardnchiu/nodejs-mysqlpool/issues"
   },
-  "homepage": "https://github.com/pardnltd-tools/nodejs-mysqlpool#readme",
+  "homepage": "https://github.com/pardnchiu/nodejs-mysqlpool#readme",
   "dependencies": {
     "mysql2": "^3.2.0"
   },
