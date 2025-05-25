@@ -36,8 +36,4 @@ export declare class MySQLPool {
   static write<T = any>(query: string, params?: any[]): Promise<T>;
 }
 
-declare const _default: {
-  MySQLPool: typeof MySQLPool;
-};
-
-export default _default;
+export default MySQLPool;

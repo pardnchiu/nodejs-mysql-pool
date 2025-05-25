@@ -3,7 +3,6 @@
 A TypeScript/JavaScript MySQL connection pool library with query builder functionality, supporting both read and write database connections.
 
 [![npm](https://img.shields.io/npm/v/@pardnchiu/nodejs-mysqlpool)](https://www.npmjs.com/package/@pardnchiu/nodejs-mysqlpool)
-[![download](https://img.shields.io/npm/dm/@pardnchiu/nodejs-mysqlpool)](https://www.npmjs.com/package/@pardnchiu/nodejs-mysqlpool)
 
 ## Features
 
