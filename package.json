@@ -1,18 +1,16 @@
 {
   "name": "@pardnchiu/mysql-pool",
   "description": "A MySQL connection pool solution designed specifically for TypeScript/JavaScript, featuring intuitive chaining syntax that integrates query builder capabilities with read-write separation.",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "publishConfig": {
     "access": "public"
   },
   "files": [
-    "dist",
-    "index.js",
-    "index.d.ts",
+    "dist/",
     "README.md",
-    "package.json"
+    "LICENSE"
   ],
   "scripts": {
     "build": "tsc",
