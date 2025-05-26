@@ -1,9 +1,9 @@
 {
-  "name": "@pardnchiu/nodejs-mysqlpool",
-  "description": "A MySQL connection pool solution designed specifically for TypeScript/JavaScript, featuring intuitive chaining syntax that integrates query builder capabilities with read-write separation architecture.",
-  "version": "0.1.6",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "name": "@pardnchiu/mysql-pool",
+  "description": "A MySQL connection pool solution designed specifically for TypeScript/JavaScript, featuring intuitive chaining syntax that integrates query builder capabilities with read-write separation.",
+  "version": "0.1.2",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "publishConfig": {
     "access": "public"
   },
@@ -12,18 +12,20 @@
     "index.js",
     "index.d.ts",
     "README.md",
-    "package.json",
-    "tsconfig.json"
+    "package.json"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pardnchiu/nodejs-mysqlpool.git"
-  },
-  "exports": {
-    ".": {
-      "require": "./index.js",
-      "types": "./index.d.ts"
-    }
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean",
+    "prepublishOnly": "npm run build",
+    "postpublish": "npm run clean",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "dev": "ts-node src/index.ts",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix"
   },
   "keywords": [
     "typescript",
@@ -34,14 +36,31 @@
   ],
   "author": "Pardn Chiu",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/pardnchiu/nodejs-mysqlpool/issues"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pardnchiu/nodejs-mysql-pool.git"
   },
-  "homepage": "https://github.com/pardnchiu/nodejs-mysqlpool#readme",
+  "bugs": {
+    "url": "https://github.com/pardnchiu/nodejs-mysql-pool/issues"
+  },
+  "homepage": "https://github.com/pardnchiu/nodejs-mysql-pool#readme",
   "dependencies": {
-    "mysql2": "^3.2.0"
+    "mysql2": "^3.14.1"
   },
   "devDependencies": {
-    "@types/node": "^22.15.21"
+    "@types/node": "^22.15.21",
+    "@types/jest": "^29.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0",
+    "jest": "^29.0.0",
+    "eslint": "^8.0.0"
+  },
+  "peerDependencies": {
+    "mysql2": "^3.14.1"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
