@@ -1,6 +1,6 @@
 # MySQLPool
 
-A TypeScript/JavaScript MySQL connection pool library with query builder functionality, supporting both read and write database connections.
+> A MySQL connection pool solution designed specifically for Nodejs, featuring intuitive chaining syntax that integrates query builder capabilities with read-write separation.
 
 [![npm](https://img.shields.io/npm/v/@pardnchiu/mysql-pool)](https://www.npmjs.com/package/@pardnchiu/mysql-pool)
 
@@ -10,7 +10,6 @@ A TypeScript/JavaScript MySQL connection pool library with query builder functio
 - **Query Builder**: Fluent interface for building SQL queries
 - **Environment Configuration**: Easy setup using environment variables
 - **Connection Management**: Automatic connection pooling and cleanup
-- **TypeScript Support**: Full TypeScript definitions included
 - **Slow Query Detection**: Automatic logging of queries taking over 20ms
 - **JOIN Operations**: Support for INNER, LEFT, and RIGHT joins
 - **CRUD Operations**: Complete Create, Read, Update, Delete functionality
@@ -19,7 +18,7 @@ A TypeScript/JavaScript MySQL connection pool library with query builder functio
 ## Installation
 
 ```bash
-npm install @pardnchiu/mysqlpool
+npm install @pardnchiu/mysql-pool
 ```
 
 ## Environment Configuration
@@ -51,12 +50,12 @@ DB_WRITE_CONNECTION=4
 ## Quick Start
 
 ```javascript
-import MySQLPool from '@pardnchiu/mysql-pool';
+import MySQLPool from "@pardnchiu/mysql-pool";
 
-// Initialize the connection pools
+// init pool
 await MySQLPool.init();
 
-// Simple query
+// simple query
 const users = await MySQLPool
   .table("users")
   .where("status", "active")
@@ -87,11 +86,11 @@ await MySQLPool.close();
 ### Query Builder Methods
 
 #### `table(tableName: string, target?: "read" | "write"): MySQLPool`
-Set the target table and connection type.
+Set the target table and target pool
 
 ```javascript
-MySQLPool.table("users");           // Uses read connection
-MySQLPool.table("users", "write");  // Uses write connection
+MySQLPool.table("users");           // use read pool
+MySQLPool.table("users", "write");  // use write pool
 ```
 
 #### `select(...fields: string[]): MySQLPool`

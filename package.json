@@ -1,7 +1,7 @@
 {
   "name": "@pardnchiu/mysql-pool",
-  "description": "A MySQL connection pool solution designed specifically for TypeScript/JavaScript, featuring intuitive chaining syntax that integrates query builder capabilities with read-write separation.",
-  "version": "0.1.3",
+  "description": "A MySQL connection pool solution designed specifically for Node.js, featuring intuitive chaining syntax that integrates query builder capabilities with read-write separation.",
+  "version": "0.1.4",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "publishConfig": {
@@ -27,6 +27,7 @@
   },
   "keywords": [
     "typescript",
+    "mysql2",
     "chain-syntax",
     "mysql",
     "邱敬幃",

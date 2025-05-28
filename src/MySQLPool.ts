@@ -1,7 +1,19 @@
 // TODO transform to npm package for other projects easily to use
 import { createPool, Pool, PoolConnection, ResultSetHeader } from "mysql2/promise";
 
+interface MySQLConfig {
+  host?: string;
+  port?: number;
+  user?: string;
+  password?: string;
+  database?: string;
+  charset?: string;
+  connectionLimit?: number;
+};
+
 class MySQLPool {
+  private static config: Record<string, MySQLConfig> = {};
+
   private static readPool: Pool | null = null;
   private static writePool: Pool | null = null;
 
@@ -25,37 +37,54 @@ class MySQLPool {
 
   private constructor() { };
 
-  public static async init(): Promise<void> {
-    const readConfig = {
-      host: (process.env.DB_READ_HOST || "").trim(),
-      port: parseInt(process.env.DB_READ_PORT || "3306") || 3306,
-      user: (process.env.DB_READ_USER || "").trim(),
-      password: process.env.DB_READ_PASSWORD || "",
-      database: (process.env.DB_READ_DATABASE || "").trim(),
-      charset: (process.env.DB_READ_CHARSET || "utf8mb4").trim(),
-      connectionLimit: parseInt(process.env.DB_READ_CONNECTION || "8") || 8,
-      waitForConnections: true
-    };
+  private static correctConfig(config: MySQLConfig) {
+    return {
+      host: String(config.host || "localhost").trim(),
+      port: parseInt(String(config.port).trim()) || 3306,
+      user: String(config.user || "root").trim(),
+      password: String(config.password || "").trim(),
+      database: String(config.database || "").trim(),
+      charset: (config.charset || "utf8mb4").trim(),
+      connectionLimit: parseInt(String(config.connectionLimit || 8).trim()) || 8
+    } as MySQLConfig;
+  }
 
-    const writeConfig = {
-      host: (process.env.DB_WRITE_HOST || "").trim(),
-      port: parseInt(process.env.DB_WRITE_PORT || "3306") || 3306,
-      user: (process.env.DB_WRITE_USER || "").trim(),
-      password: process.env.DB_WRITE_PASSWORD || "",
-      database: (process.env.DB_WRITE_DATABASE || "").trim(),
-      charset: (process.env.DB_WRITE_CHARSET || "utf8mb4").trim(),
-      connectionLimit: parseInt(process.env.DB_WRITE_CONNECTION || "4") || 4,
-      waitForConnections: true
-    };
+  public static async init(config: Record<string, MySQLConfig> = {}): Promise<void> {
+    this.config = config;
+
+    let readConfig = this.correctConfig(config.config || config.read || {});
+    let writeConfig = this.correctConfig(config.config || config.write || config.read || {});
+
+    // const readConfig = {
+    //   host: String(this.config.host || "localhost").trim(),
+    //   port: parseInt(String(this.config.port).trim()) || 3306,
+    //   user: String(this.config.user || "").trim(),
+    //   password: String(this.config.password || "").trim(),
+    //   database: String(process.env.DB_READ_DATABASE || "").trim(),
+    //   charset: (process.env.DB_READ_CHARSET || "utf8mb4").trim(),
+    //   connectionLimit: parseInt(process.env.DB_READ_CONNECTION || "8") || 8,
+    //   waitForConnections: true
+    // };
+
+    // const writeConfig = {
+    //   host: (process.env.DB_WRITE_HOST || "").trim(),
+    //   port: parseInt(process.env.DB_WRITE_PORT || "3306") || 3306,
+    //   user: (process.env.DB_WRITE_USER || "").trim(),
+    //   password: process.env.DB_WRITE_PASSWORD || "",
+    //   database: (process.env.DB_WRITE_DATABASE || "").trim(),
+    //   charset: (process.env.DB_WRITE_CHARSET || "utf8mb4").trim(),
+    //   connectionLimit: parseInt(process.env.DB_WRITE_CONNECTION || "4") || 4,
+    //   waitForConnections: true
+    // };
 
     try {
-      if (readConfig.user.length > 0) {
+      if ((readConfig.database || "").length > 0) {
         this.readPool = createPool(readConfig);
         const connection = await this.readPool.getConnection();
         connection.release();
       };
 
-      if (writeConfig.user.length > 0) {
+      if ((writeConfig.database || "").length > 0) {
         this.writePool = createPool(writeConfig);
         const connection = await this.writePool.getConnection();
         connection.release();
